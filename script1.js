@@ -1,22 +1,22 @@
 const products = [
-    { name: 'Rose Candle (Frangrance)', category: 'CANDLE', color: 'PINK', price: 45, img: 'pikcan.png', oldPrice: 60 },
-    { name: 'Eucalyptus Candle (Frangrance)', category: 'CANDLE', color: 'GREEN', price: 45, img: 'grcan.jpg', oldPrice: 60 },
-    { name: 'Wild Blossom Candle (Frangrance)', category: 'CANDLE', color: 'PURPLE', price: 45, img: 'pur can.jpg', oldPrice: 60 },
-    { name: 'Pink Candle (Non Fragnented)', category: 'CANDLE', color: 'PINK', price: 35, img: 'pink.png', oldPrice: 50 },
-    { name: 'Red Candle (Non Fragnented)', category: 'CANDLE', color: 'RED', price: 35, img: 'redcan.jpg', oldPrice: 50 },
-    { name: 'Blue Candle (Non Fragnented)', category: 'CANDLE', color: 'BLUE', price: 35, img: 'blu.webp', oldPrice: 50 },
-    { name: 'Yellow Candle (Non Fragnented)', category: 'CANDLE', color: 'YELLOW', price: 35, img:'yelcan.png', oldPrice: 50 },
-    { name: 'Purple Candle (Non Fragnented)', category: 'CANDLE', color: 'PURPLE', price: 35, img: 'pur can.jpg', oldPrice: 50 },
-    { name: 'French Green Clay Soap', category: 'SOAP', color: 'GREEN', price: 59, img: 'green soap.jpg', oldPrice: 99 },
-    { name: 'Rose Clay Soap', category: 'SOAP', color: 'PINK', price: 59, img: 'rosesoap.png', oldPrice: 99 },
-    { name: 'Red Moroccan Clay Soap', category: 'SOAP', color: 'RED', price: 59, img: 'redmor.webp', oldPrice: 99 },
-    { name: 'Organic Accessories', category: 'ACCESSORIES', color: '', price: 849, img: 'combo.webp', oldPrice:    1050 }
+    { name: 'Rose Candle (Frangrance)', category: 'CANDLE', color: 'PINK', price: 45, img: 'img/pikcan.png', oldPrice: 60 },
+    { name: 'Eucalyptus Candle (Frangrance)', category: 'CANDLE', color: 'GREEN', price: 45, img: 'img/grcan.jpg', oldPrice: 60 },
+    { name: 'Wild Blossom Candle (Frangrance)', category: 'CANDLE', color: 'PURPLE', price: 45, img: 'img/pur can.jpg', oldPrice: 60 },
+    { name: 'Pink Candle (Non Fragnented)', category: 'CANDLE', color: 'PINK', price: 35, img: 'img/pink.png', oldPrice: 50 },
+    { name: 'Red Candle (Non Fragnented)', category: 'CANDLE', color: 'RED', price: 35, img: 'img/redcan.jpg', oldPrice: 50 },
+    { name: 'Blue Candle (Non Fragnented)', category: 'CANDLE', color: 'BLUE', price: 35, img: 'img/blu.webp', oldPrice: 50 },
+    { name: 'Yellow Candle (Non Fragnented)', category: 'CANDLE', color: 'YELLOW', price: 35, img:'img/yelcan.png', oldPrice: 50 },
+    { name: 'Purple Candle (Non Fragnented)', category: 'CANDLE', color: 'PURPLE', price: 35, img: 'img/pur can.jpg', oldPrice: 50 },
+    { name: 'French Green Clay Soap', category: 'SOAP', color: 'GREEN', price: 59, img: 'img/green soap.jpg', oldPrice: 99 },
+    { name: 'Rose Clay Soap', category: 'SOAP', color: 'PINK', price: 59, img: 'img/rosesoap.png', oldPrice: 99 },
+    { name: 'Red Moroccan Clay Soap', category: 'SOAP', color: 'RED', price: 59, img: 'img/redmor.webp', oldPrice: 99 },
+    { name: 'Organic Accessories', category: 'ACCESSORIES', color: '', price: 849, img: 'img/combo.webp', oldPrice: 1050 }
 ];
-// FILTER STATE
+let cartItems = [];
 let activeCategory = 'All Products';
-const filters = { price: 3000, colors: [] };
+const filters = { price: 849, colors: [] };
 
-// RENDER PRODUCTS
+// Render products to grid
 function renderProducts(list) {
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
@@ -35,8 +35,6 @@ function renderProducts(list) {
         grid.appendChild(card);
     });
 }
-
-// FILTER LOGIC
 function getFilteredProducts() {
     let filtered = products.filter(p => p.price <= filters.price);
     if (activeCategory !== 'All Products') {
@@ -51,45 +49,38 @@ document.getElementById('nav-menu').addEventListener('click', function(e) {
     if (e.target.tagName === 'A') {
         e.preventDefault();
         activeCategory = e.target.dataset.section;
-        document.getElementById('section-title').innerText = (
+        document.getElementById('section-title').innerText =
             activeCategory === "CANDLE"
                 ? "Browse Our Fragrant Candles"
                 : activeCategory === "SOAP"
                 ? "Soap Collection"
                 : activeCategory === "ACCESSORIES"
                 ? "Explore Accessories"
-                : "All Products"
-        );
+                : "All Products";
         renderProducts(getFilteredProducts());
     }
 });
-// CART (simple counter)
-let cartCount = 0;
-function showCartMsg() {
-    const msg = document.getElementById('cart-msg');
-    msg.style.display = 'block';
-    setTimeout(() => { msg.style.display = 'none'; }, 1500);
-}
+
 document.body.addEventListener('click', function(e) {
     if (e.target.classList.contains('add-cart-btn')) {
-        cartCount++;
-        document.getElementById('cart-count').innerText = cartCount;
+        const idx = Number(e.target.dataset.index);
+        let found = cartItems.find(item => item.product.name === products[idx].name);
+        if(found) found.qty++;
+        else cartItems.push({product:products[idx],qty:1});
+        updateCartDisplay();
         showCartMsg();
     }
 });
-// SEARCH
 document.getElementById('search-bar').addEventListener('input', function(e) {
     const val = e.target.value.trim().toLowerCase();
     let filtered = getFilteredProducts().filter(p => p.name.toLowerCase().includes(val));
     renderProducts(filtered);
 });
-// PRICE
 document.getElementById('price-range').addEventListener('input', function(e) {
     filters.price = parseInt(e.target.value);
     document.getElementById('price-value').innerText = `Up to ₹${e.target.value}`;
     renderProducts(getFilteredProducts());
 });
-// COLOR
 Array.from(document.getElementsByClassName('color-filter')).forEach(input => {
     input.addEventListener('change', function() {
         filters.colors = Array.from(document.getElementsByClassName('color-filter'))
@@ -97,98 +88,35 @@ Array.from(document.getElementsByClassName('color-filter')).forEach(input => {
         renderProducts(getFilteredProducts());
     });
 });
-// INITIAL RENDER
 renderProducts(getFilteredProducts());
 
-// ICON STUBS
-document.getElementById('cart-icon').onclick = () => alert('Cart is under development!');
-document.getElementById('user-icon').onclick = () => alert('User page is under development!');
-
-document.getElementById('cart-icon').onclick = function(e) {
-    e.preventDefault();  // Prevents link navigation
-    document.getElementById('cart-modal').classList.add('show');
-};
-// Replace with your actual EmailJS public key!
-emailjs.init("6f4rd0FRUfOgpoQYv");
-
-document.getElementById('order-form').onsubmit = function(e){
-    e.preventDefault();
-    // Build cart data
-    let orderList = "";
-    let total = 0;
-    cartItems.forEach(item => {
-        orderList += `${item.product.name} × ${item.qty} = ₹${item.product.price*item.qty}\n`;
-        total += item.product.price * item.qty;
-    });
-    // Get name & email from form fields
-    const name = document.getElementById('user-name').value;
-    const email = document.getElementById('user-email').value;
-    // Params to match EmailJS template variables
-    const params = {
-        to_email: 'tharunkishore96@gmail.com',
-        from_name: name,
-        reply_to: email,
-        order_list: orderList,
-        total: `₹${total}`
-    };
-    // Show sending message
-    document.getElementById('order-status').textContent = 'Sending order...';
-    // Replace with your actual service & template IDs from EmailJS dashboard
-    emailjs.send("service_17802oa", "template_x0gerco", params)
-      .then(() => {
-          document.getElementById('order-status').textContent = 'Order placed! Confirmation sent.';
-          // Optionally clear cart and UI
-      }, (err) => {
-          document.getElementById('order-status').textContent = 'Order failed. Try again.';
-          console.log('EmailJS error:', err);
-      });
-};
-// --- EmailJS ---
-emailjs.init("6f4rd0FRUfOgpoQYv");
-
-// --- Cart management ---
-let cartItems = [];
+// --- Cart modal logic
 function updateCartDisplay() {
     document.getElementById('cart-count').innerText = cartItems.reduce((sum, item)=>sum+item.qty,0);
     const list = document.getElementById('cart-list');
     list.innerHTML = '';
     let total = 0;
-    cartItems.forEach((item, idx)=>{
+    cartItems.forEach((item, idx) => {
         total += item.product.price * item.qty;
         list.innerHTML += `<li>
           <img src="${item.product.img}" style="height:40px;vertical-align:middle;margin-right:5px;">
           ${item.product.name} × ${item.qty} = ₹${item.product.price*item.qty}
           <button onclick="removeFromCart(${idx})" style="background:#eee;border:none;color:#f00;cursor:pointer;">Remove</button>
-          </li>`;
+        </li>`;
     });
     document.getElementById('cart-total').innerText = `Total: ₹${total}`;
 }
 window.removeFromCart = function(idx) {
     cartItems.splice(idx,1);updateCartDisplay();
 }
-
-// --- Add products to cart ---
-document.body.addEventListener('click', function(e) {
-    if (e.target.classList.contains('add-cart-btn')) {
-        const prodIdx = Number(e.target.dataset.index);
-        const found = cartItems.find(item=>item.product.name===products[prodIdx].name);
-        if(found) found.qty++;
-        else cartItems.push({product:products[prodIdx],qty:1});
-        updateCartDisplay();
-        showCartMsg && showCartMsg();
-    }
-});
-
-// --- Cart Modal Logic ---
-const cartModal = document.getElementById('cart-modal');
-document.getElementById('cart-icon').onclick = (e) => {
+document.getElementById('cart-icon').onclick = function(e) {
     e.preventDefault();
-    cartModal.classList.add('show');
+    document.getElementById('cart-modal').classList.add('show');
     updateCartDisplay();
 };
-document.querySelector('.close-cart-btn').onclick = () => cartModal.classList.remove('show');
-
-// --- EmailJS order placement handler ---
+document.querySelector('.close-cart-btn').onclick = function() {
+    document.getElementById('cart-modal').classList.remove('show');
+};
 document.getElementById('order-form').onsubmit = function(e){
     e.preventDefault();
     if(cartItems.length===0) {
@@ -198,28 +126,27 @@ document.getElementById('order-form').onsubmit = function(e){
     const name = document.getElementById('user-name').value;
     const email = document.getElementById('user-email').value;
     let orderList = "";
+    let total = 0;
     cartItems.forEach(item=>{
-      orderList += `${item.product.name} × ${item.qty} = ₹${item.product.price*item.qty}\n`;
+        orderList += `${item.product.name} × ${item.qty} = ₹${item.product.price*item.qty}\n`;
+        total += item.product.price * item.qty;
     });
-    const params = {
-      to_email: 'tharunkishore96@gmail.com',
-      from_name: name,
-      reply_to: email,
-      order_list: orderList,
-      total: document.getElementById('cart-total').innerText
-    };
-    document.getElementById('order-status').textContent = 'Sending order...';
-    emailjs.send("service_17802oa", "template_x0gerco", params)
-     .then(() => {
-         document.getElementById('order-status').textContent = 'Order placed! Confirmation sent.';
-         cartItems = [];
-         updateCartDisplay();
-         setTimeout(()=> {
-            cartModal.classList.remove('show');
-            document.getElementById('order-status').textContent='';
-         }, 2000);
-      }, (err) => {
-         document.getElementById('order-status').textContent = 'Order failed. Try again.';
-      });
+    const whatsappLink = `https://wa.me/918825838787?text=${encodeURIComponent(
+      `Order from ${name} (${email})\n${orderList}Total: ₹${total}`
+    )}`;
+    window.open(whatsappLink, "_blank");
+    setTimeout(() => {
+      cartItems = [];
+      updateCartDisplay();
+      document.getElementById('cart-modal').classList.remove('show');
+      document.getElementById('user-name').value = '';
+      document.getElementById('user-email').value = '';
+      document.getElementById('order-status').textContent = '';
+    }, 2000);
 };
-
+document.getElementById('user-icon').onclick = () => alert('User page is under development!');
+function showCartMsg() {
+    const msg = document.getElementById('cart-msg');
+    msg.style.display = 'block';
+    setTimeout(() => { msg.style.display = 'none'; }, 1500);
+}
