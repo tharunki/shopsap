@@ -1,16 +1,16 @@
 const products = [
-    { name: 'Rose Candle (Frangrance)', category: 'CANDLE', color: 'PINK', price: 45, img: 'img/pikcan.png', oldPrice: 60 },
-    { name: 'Eucalyptus Candle (Frangrance)', category: 'CANDLE', color: 'GREEN', price: 45, img: 'img/grcan.jpg', oldPrice: 60 },
-    { name: 'Wild Blossom Candle (Frangrance)', category: 'CANDLE', color: 'PURPLE', price: 45, img: 'img/pur can.jpg', oldPrice: 60 },
-    { name: 'Pink Candle (Non Fragnented)', category: 'CANDLE', color: 'PINK', price: 35, img: 'img/pink.png', oldPrice: 50 },
-    { name: 'Red Candle (Non Fragnented)', category: 'CANDLE', color: 'RED', price: 35, img: 'img/redcan.jpg', oldPrice: 50 },
-    { name: 'Blue Candle (Non Fragnented)', category: 'CANDLE', color: 'BLUE', price: 35, img: 'img/blu.webp', oldPrice: 50 },
-    { name: 'Yellow Candle (Non Fragnented)', category: 'CANDLE', color: 'YELLOW', price: 35, img:'img/yelcan.png', oldPrice: 50 },
-    { name: 'Purple Candle (Non Fragnented)', category: 'CANDLE', color: 'PURPLE', price: 35, img: 'img/pur can.jpg', oldPrice: 50 },
-    { name: 'French Green Clay Soap', category: 'SOAP', color: 'GREEN', price: 59, img: 'img/green soap.jpg', oldPrice: 99 },
-    { name: 'Rose Clay Soap', category: 'SOAP', color: 'PINK', price: 59, img: 'img/rosesoap.png', oldPrice: 99 },
-    { name: 'Red Moroccan Clay Soap', category: 'SOAP', color: 'RED', price: 59, img: 'img/redmor.webp', oldPrice: 99 },
-    { name: 'Organic Accessories', category: 'ACCESSORIES', color: '', price: 849, img: 'img/combo.webp', oldPrice:    1050 }
+    { name: 'Rose Candle (Frangrance)', category: 'CANDLE', color: 'PINK', price: 45, img: 'pikcan.png', oldPrice: 60 },
+    { name: 'Eucalyptus Candle (Frangrance)', category: 'CANDLE', color: 'GREEN', price: 45, img: 'grcan.jpg', oldPrice: 60 },
+    { name: 'Wild Blossom Candle (Frangrance)', category: 'CANDLE', color: 'PURPLE', price: 45, img: 'pur can.jpg', oldPrice: 60 },
+    { name: 'Pink Candle (Non Fragnented)', category: 'CANDLE', color: 'PINK', price: 35, img: 'pink.png', oldPrice: 50 },
+    { name: 'Red Candle (Non Fragnented)', category: 'CANDLE', color: 'RED', price: 35, img: 'redcan.jpg', oldPrice: 50 },
+    { name: 'Blue Candle (Non Fragnented)', category: 'CANDLE', color: 'BLUE', price: 35, img: 'blu.webp', oldPrice: 50 },
+    { name: 'Yellow Candle (Non Fragnented)', category: 'CANDLE', color: 'YELLOW', price: 35, img:'yelcan.png', oldPrice: 50 },
+    { name: 'Purple Candle (Non Fragnented)', category: 'CANDLE', color: 'PURPLE', price: 35, img: 'pur can.jpg', oldPrice: 50 },
+    { name: 'French Green Clay Soap', category: 'SOAP', color: 'GREEN', price: 59, img: 'green soap.jpg', oldPrice: 99 },
+    { name: 'Rose Clay Soap', category: 'SOAP', color: 'PINK', price: 59, img: 'rosesoap.png', oldPrice: 99 },
+    { name: 'Red Moroccan Clay Soap', category: 'SOAP', color: 'RED', price: 59, img: 'redmor.webp', oldPrice: 99 },
+    { name: 'Organic Accessories', category: 'ACCESSORIES', color: '', price: 849, img: 'combo.webp', oldPrice:    1050 }
 ];
 // FILTER STATE
 let activeCategory = 'All Products';
@@ -222,3 +222,4 @@ document.getElementById('order-form').onsubmit = function(e){
          document.getElementById('order-status').textContent = 'Order failed. Try again.';
       });
 };
+
