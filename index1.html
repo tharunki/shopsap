@@ -28,17 +28,18 @@
             <h2>✨ Filters for Your Perfect Fit ✨</h2>
             <div>
                 <strong>Price</strong>
-                <input id="price-range" type="range" min="500" max="3000" value="3000">
-                <span id="price-value">Up to ₹3000</span>
+                <input id="price-range" type="range" min="35" max="849" value="849">
+                <span id="price-value">Up to ₹849</span>
             </div>
             <div>
                 <strong>Colour</strong>
                 <ul>
-                    <li><input class="color-filter" type="checkbox" id="black" value="PINK"><label for="black">PINK</label></li>
-                    <li><input class="color-filter" type="checkbox" id="white" value="RED"><label for="white">RED</label></li>
-                    <li><input class="color-filter" type="checkbox" id="blue" value="BLUE"><label for="blue">BLUE</label></li>
-                    <li><input class="color-filter" type="checkbox" id="green" value="YELLOW"><label for="green">YELLOW</label></li>
-                    <li><input class="color-filter" type="checkbox" id="gray" value="PURPLE"><label for="gray">PURPLE</label></li>
+                    <li><input class="color-filter" type="checkbox" value="PINK" id="pink"><label for="pink">PINK</label></li>
+                    <li><input class="color-filter" type="checkbox" value="RED" id="red"><label for="red">RED</label></li>
+                    <li><input class="color-filter" type="checkbox" value="GREEN" id="green"><label for="green">GREEN</label></li>
+                    <li><input class="color-filter" type="checkbox" value="YELLOW" id="yellow"><label for="yellow">YELLOW</label></li>
+                    <li><input class="color-filter" type="checkbox" value="PURPLE" id="purple"><label for="purple">PURPLE</label></li>
+                    <li><input class="color-filter" type="checkbox" value="BLUE" id="blue"><label for="blue">BLUE</label></li>
                 </ul>
             </div>
             <div class="decorative-tip bounce">
@@ -58,25 +59,22 @@
         <p class="footer-anim">&copy; 2025 Melt & Bloom | Designed for your moments of calm.</p>
     </footer>
     <div class="cart-msg" id="cart-msg">🛒 Added to cart! Enjoy shopping at Melt & Bloom!</div>
-    <script src="script1.js"></script>
-    <!-- CART MODAL ORDER FORM -->
-<div id="cart-modal" class="cart-modal">
-    <div class="cart-content">
-        <h2>Your Cart</h2>
-        <ul id="cart-list"></ul>
-        <p id="cart-total"></p>
-        <form id="order-form">
-            <input type="text" id="user-name" placeholder="Your Name" required/>
-            <input type="email" id="user-email" placeholder="Your Email" required/>
-            <button type="submit" class="place-order-btn">Place Order</button>
-            <button type="button" class="close-cart-btn">Close</button>
-        </form>
-        <div id="order-status"></div>
-    </div>
-</div>
-<!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script src="script.js"></script>
 
+    <!-- CART MODAL ORDER FORM -->
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <h2>Your Cart</h2>
+            <ul id="cart-list"></ul>
+            <p id="cart-total"></p>
+            <form id="order-form">
+                <input type="text" id="user-name" placeholder="Your Name" required/>
+                <input type="email" id="user-email" placeholder="Your Email" required/>
+                <button type="submit" class="place-order-btn">Place Order</button>
+                <button type="button" class="close-cart-btn">Close</button>
+            </form>
+            <div id="order-status"></div>
+        </div>
+    </div>
+    <script src="script1.js"></script>
 </body>
 </html>
